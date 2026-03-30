@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Σύγκριση Παρόχων Ρεύματος | EcoGreenPower</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-page:#E8EDF2; --bg-card:#F5F4F1; --bg-input:#EAE9E5; --bg-hover:#DDDCDA;
+      --border:rgba(0,0,0,0.08); --border-lit:rgba(0,0,0,0.14);
+      --shadow:0 1px 4px rgba(0,0,0,0.07),0 4px 16px rgba(0,0,0,0.05);
+      --gold:#1A6B4A; --gold-mid:#2E8A5C; --gold-light:#3DAA72;
+      --gold-dim:rgba(26,107,74,0.10); --gold-bg:rgba(26,107,74,0.06);
+      --text-1:#1A202C; --text-2:#4A5568; --text-3:#9AA0A8;
+      --green:#1A6B4A; --green-mid:#2E8A5C; --green-dim:rgba(26,107,74,0.09);
+      --red:#B04040; --sapphire:#2B5FA8;
+      --sapphire-dim:rgba(43,95,168,0.08); --sapphire-border:rgba(43,95,168,0.18);
+      --font-d:'Playfair Display',Georgia,serif; --font-s:'Inter',system-ui,sans-serif;
+      --r-sm:6px; --r-md:10px; --r-lg:14px; --r-xl:20px;
+    }
+    body{background:var(--bg-page);font-family:var(--font-s);color:var(--text-1);min-height:100vh;padding:48px 20px 64px;display:flex;flex-direction:column;align-items:center;}
+    .header{text-align:center;margin-bottom:44px;max-width:540px;}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-mid);margin-bottom:18px;}
+    .eyebrow-line{width:26px;height:1px;background:var(--gold-mid);opacity:.5;}
+    h1{font-family:var(--font-d);font-size:clamp(28px,5vw,42px);font-weight:700;line-height:1.15;color:var(--text-1);margin-bottom:12px;}
+    h1 em{color:var(--gold);font-style:normal;}
+    .header-sub{font-size:14px;color:var(--text-2);line-height:1.65;}
+    .card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);box-shadow:var(--shadow);width:100%;max-width:580px;padding:30px;margin-bottom:16px;}
+    .card-title{font-family:var(--font-d);font-size:16px;font-weight:600;color:var(--text-1);margin-bottom:4px;}
+    .card-sub{font-size:12px;color:var(--text-3);margin-bottom:24px;}
+    .tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--bg-input);border-radius:var(--r-md);padding:4px;gap:4px;margin-bottom:28px;}
+    .tab{padding:10px;border:none;border-radius:var(--r-sm);font-size:13px;font-weight:500;font-family:var(--font-s);cursor:pointer;transition:all .2s;background:transparent;color:var(--text-3);}
+    .tab.active{background:var(--bg-card);color:var(--gold);border:1px solid rgba(26,107,74,.2);box-shadow:0 1px 4px rgba(0,0,0,.08);}
+    .tab:not(.active):hover{color:var(--text-2);background:var(--bg-hover);}
+    .field-group{margin-bottom:22px;}
+    .field-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
+    .field-name{font-size:12px;color:var(--text-2);font-weight:500;}
+    .field-value{font-size:17px;font-weight:600;color:var(--gold);font-variant-numeric:tabular-nums;}
+    input[type=range]{-webkit-appearance:none;width:100%;height:2px;background:linear-gradient(to right,var(--gold-light) var(--pct,30%),var(--bg-input) var(--pct,30%));border-radius:1px;outline:none;cursor:pointer;}
+    input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--bg-card);border:2px solid var(--gold-light);box-shadow:0 0 0 3px var(--gold-dim),0 1px 4px rgba(0,0,0,.12);}
+    .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:var(--bg-input);border-radius:var(--r-md);border:1px solid var(--border);margin-bottom:22px;cursor:pointer;transition:background .15s;}
+    .toggle-row:hover{background:var(--bg-hover);}
+    .toggle-info{display:flex;align-items:center;gap:9px;}
+    .toggle-label{font-size:13px;color:var(--text-2);}
+    .toggle-pill{width:38px;height:21px;background:var(--bg-hover);border:1px solid var(--border-lit);border-radius:11px;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0;}
+    .toggle-pill.on{background:var(--gold-light);border-color:var(--gold-mid);}
+    .toggle-pill::after{content:'';position:absolute;width:15px;height:15px;background:#fff;border-radius:50%;top:2px;left:2px;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.15);}
+    .toggle-pill.on::after{transform:translateX(17px);}
+    .divider{height:1px;background:var(--border);margin:22px 0;}
+    .btn-calc{width:100%;padding:14px;border:none;border-radius:var(--r-md);background:linear-gradient(135deg,#B45309,#D97706,#B45309);background-size:200% 100%;color:#fff;font-size:14px;font-weight:600;font-family:var(--font-s);letter-spacing:.04em;cursor:pointer;transition:all .3s;box-shadow:0 2px 8px rgba(180,83,9,.25);}
+    .btn-calc:hover{background-position:100% 0;box-shadow:0 4px 18px rgba(180,83,9,.35);}
+    .hidden{display:none!important;}
+    .results-meta{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;}
+    .results-meta-label{font-size:10px;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;}
+    .results-meta-val{font-size:13px;color:var(--text-2);}
+    .bars{margin-bottom:20px;}
+    .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+    .bar-rank{width:16px;font-size:11px;color:var(--text-3);text-align:right;flex-shrink:0;}
+    .bar-name{font-size:12px;color:var(--text-2);width:70px;flex-shrink:0;}
+    .bar-track{flex:1;background:var(--bg-input);border-radius:2px;height:6px;overflow:hidden;}
+    .bar-fill{height:100%;border-radius:2px;transition:width .9s cubic-bezier(.34,1.2,.64,1);}
+    .bar-amount{font-size:12px;color:var(--text-2);width:58px;text-align:right;flex-shrink:0;font-variant-numeric:tabular-nums;}
+    .rank-list{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-bottom:18px;}
+    .rank-item{display:flex;align-items:center;gap:12px;padding:12px 15px;border-bottom:1px solid var(--border);transition:background .12s;}
+    .rank-item:last-child{border-bottom:none;}
+    .rank-item:hover{background:var(--bg-input);}
+    .rank-item.best{background:var(--gold-bg);border-left:2px solid var(--gold-light);}
+    .rank-item.best:hover{background:var(--gold-dim);}
+    .rank-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;}
+    .rank-num.n1{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(26,107,74,.25);}
+    .rank-num.nX{background:var(--bg-input);color:var(--text-3);border:1px solid var(--border);}
+    .rank-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+    .rank-name{flex:1;font-size:13px;color:var(--text-1);font-weight:500;}
+    .badge-best{font-size:10px;font-weight:600;letter-spacing:.06em;background:var(--gold-dim);color:var(--gold);border:1px solid rgba(26,107,74,.22);padding:2px 8px;border-radius:20px;white-space:nowrap;}
+    .rank-right{text-align:right;}
+    .rank-price{font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;}
+    .rank-price.bp{color:var(--gold);}
+    .rank-price.np{color:var(--text-1);}
+    .rank-diff{font-size:11px;color:var(--text-3);}
+    .savings-strip{background:var(--green-dim);border:1px solid rgba(26,107,74,.18);border-radius:var(--r-md);padding:15px 18px;display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+    .savings-icon-box{width:38px;height:38px;border-radius:var(--r-sm);background:rgba(26,107,74,.12);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+    .savings-label{font-size:10px;color:var(--green);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px;font-weight:600;}
+    .savings-amount{font-size:21px;font-weight:700;color:var(--green);font-variant-numeric:tabular-nums;}
+    .savings-desc{font-size:11px;color:var(--text-3);margin-top:2px;}
+    .btn-ai{width:100%;padding:13px;border-radius:var(--r-md);background:transparent;border:1px solid var(--border-lit);color:var(--text-2);font-size:13px;font-weight:500;font-family:var(--font-s);cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+    .btn-ai:hover{background:var(--bg-input);color:var(--text-1);border-color:rgba(43,95,168,.3);}
+    .btn-ai:disabled{opacity:.5;cursor:not-allowed;}
+    .ai-dot{width:7px;height:7px;border-radius:50%;background:var(--sapphire);flex-shrink:0;}
+    .ai-box{margin-top:12px;padding:16px 18px;background:var(--sapphire-dim);border:1px solid var(--sapphire-border);border-radius:var(--r-md);}
+    .ai-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+    .ai-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sapphire);}
+    .ai-text{font-size:14px;color:var(--text-2);line-height:1.75;}
+    .ld{width:6px;height:6px;border-radius:50%;background:var(--sapphire);opacity:.35;animation:ld 1.2s ease-in-out infinite;display:inline-block;margin-right:4px;}
+    .ld:nth-child(2){animation-delay:.2s;} .ld:nth-child(3){animation-delay:.4s;}
+    .footer{font-size:11px;color:var(--text-3);text-align:center;margin-top:12px;}
+    @keyframes ld{0%,80%,100%{opacity:.2}40%{opacity:1}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    .fade-up{animation:fadeUp .4s ease forwards;}
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="eyebrow"><span class="eyebrow-line"></span>EcoGreenPower · Εργαλείο Σύγκρισης<span class="eyebrow-line"></span></div>
+    <h1>Σύγκριση Παρόχων<br><em>Ηλεκτρισμού</em></h1>
+    <p class="header-sub">Εισάγετε την κατανάλωσή σας και ανακαλύψτε τον πιο οικονομικό πάροχο — με ανάλυση AI.</p>
+  </div>
+
+  <div class="card">
+    <p class="card-title">Στοιχεία Κατανάλωσης</p>
+    <p class="card-sub">Συμπληρώστε τα παρακάτω για εξατομικευμένα αποτελέσματα</p>
+    <div class="tabs">
+      <button class="tab active" id="tabG1" onclick="setCategory('G1')">🏠 Οικιακό (G1)</button>
+      <button class="tab" id="tabG2" onclick="setCategory('G2')">🏢 Επαγγελματικό (G2)</button>
+    </div>
+    <div class="field-group">
+      <div class="field-label">
+        <span class="field-name" id="dayLabel">Μηνιαία κατανάλωση</span>
+        <span class="field-value" id="dayVal">250 kWh</span>
+      </div>
+      <input type="range" id="daySlider" min="50" max="1000" step="10" value="250" oninput="onSlider(this,'dayVal')">
+    </div>
+    <div class="toggle-row" onclick="toggleNight()">
+      <div class="toggle-info"><span>🌙</span><span class="toggle-label">Νυκτερινό τιμολόγιο</span></div>
+      <button class="toggle-pill" id="nightPill"></button>
+    </div>
+    <div class="field-group hidden" id="nightSection">
+      <div class="field-label">
+        <span class="field-name">Μηνιαία κατανάλωση νύχτας</span>
+        <span class="field-value" id="nightVal">80 kWh</span>
+      </div>
+      <input type="range" id="nightSlider" min="10" max="500" step="5" value="80" oninput="onSlider(this,'nightVal')">
+    </div>
+    <div class="divider"></div>
+    <button class="btn-calc" onclick="calculate()">Υπολόγισε &amp; Σύγκρινε →</button>
+  </div>
+
+  <div class="card fade-up hidden" id="resultsCard">
+    <div class="results-meta">
+      <div><div class="results-meta-label">Αποτελέσματα σύγκρισης</div><div class="results-meta-val" id="resultsMeta">—</div></div>
+      <div style="text-align:right"><div class="results-meta-label">Τελευταία ενημέρωση</div><div class="results-meta-val" id="lastUpdatedEl">Μάρτιος 2026</div></div>
+    </div>
+    <div class="bars" id="barChart"></div>
+    <div class="divider"></div>
+    <div class="rank-list" id="rankList"></div>
+    <div class="savings-strip">
+      <div class="savings-icon-box">💰</div>
+      <div>
+        <div class="savings-label">Μέγιστη εξοικονόμηση</div>
+        <div class="savings-amount" id="savingsAmt">—</div>
+        <div class="savings-desc" id="savingsDesc">—</div>
+      </div>
+    </div>
+    <button class="btn-ai" id="aiBtn" onclick="getAI()">
+      <span class="ai-dot"></span>Ανάλυση &amp; Σύσταση με AI
+    </button>
+    <div class="ai-box hidden" id="aiBox">
+      <div class="ai-header"><span class="ai-dot"></span><span class="ai-label">Claude AI · Σύσταση</span></div>
+      <div id="aiContent"></div>
+    </div>
+  </div>
+
+  <p class="footer">Οι τιμές είναι ενδεικτικές &nbsp;·&nbsp; EcoGreenPower &nbsp;·&nbsp; Μάρτιος 2026</p>
+
+<script>
+  // Χρησιμοποιεί τον ίδιο server — λειτουργεί και στο Render
+  const API_BASE = "";
+  const PROVIDERS = [
+    {id:"dei",name:"ΔΕΗ",color:"#2B5FA8",G1:{day:0.1389,night:0.0812,fixed_monthly:13.5},G2:{day:0.1521,night:0.0923,fixed_monthly:18.0}},
+    {id:"protergia",name:"Protergia",color:"#B04040",G1:{day:0.1312,night:0.0754,fixed_monthly:12.0},G2:{day:0.1445,night:0.0865,fixed_monthly:16.5}},
+    {id:"elpedison",name:"Elpedison",color:"#8A6A1E",G1:{day:0.1298,night:0.0741,fixed_monthly:11.5},G2:{day:0.1432,night:0.0852,fixed_monthly:15.8}},
+    {id:"heron",name:"Heron",color:"#1A6B4A",G1:{day:0.1276,night:0.0728,fixed_monthly:11.0},G2:{day:0.1398,night:0.0839,fixed_monthly:15.2}},
+    {id:"nrg",name:"NRG",color:"#6B4A9B",G1:{day:0.1334,night:0.0768,fixed_monthly:12.5},G2:{day:0.1467,night:0.0879,fixed_monthly:17.0}},
+    {id:"volterra",name:"Volterra",color:"#2E7E8C",G1:{day:0.1356,night:0.0791,fixed_monthly:13.0},G2:{day:0.1489,night:0.0901,fixed_monthly:17.5}},
+    {id:"wattvolt",name:"Watt+Volt",color:"#B06030",G1:{day:0.1289,night:0.0735,fixed_monthly:11.8},G2:{day:0.1422,night:0.0846,fixed_monthly:16.0}},
+  ];
+  let category="G1",hasNight=false,lastResults=null,providersData=[...PROVIDERS],lastUpdated="Μάρτιος 2026";
+
+  async function init(){
+    try{
+      const res=await fetch(`${API_BASE}/api/prices`);
+      const data=await res.json();
+      providersData=data.providers; lastUpdated=data.last_updated;
+      document.getElementById("lastUpdatedEl").textContent=lastUpdated;
+    }catch{}
+    document.querySelectorAll("input[type=range]").forEach(el=>{
+      const v=parseInt(el.value),mn=parseInt(el.min),mx=parseInt(el.max);
+      el.style.setProperty("--pct",((v-mn)/(mx-mn)*100).toFixed(1)+"%");
+    });
+  }
+
+  function setCategory(cat){category=cat;document.getElementById("tabG1").className="tab"+(cat==="G1"?" active":"");document.getElementById("tabG2").className="tab"+(cat==="G2"?" active":"");document.getElementById("resultsCard").classList.add("hidden");}
+  function onSlider(el,valId){const v=parseInt(el.value),mn=parseInt(el.min),mx=parseInt(el.max);el.style.setProperty("--pct",((v-mn)/(mx-mn)*100).toFixed(1)+"%");document.getElementById(valId).textContent=v+" kWh";document.getElementById("resultsCard").classList.add("hidden");}
+  function toggleNight(){hasNight=!hasNight;document.getElementById("nightPill").className="toggle-pill"+(hasNight?" on":"");document.getElementById("nightSection").className="field-group"+(hasNight?"":" hidden");document.getElementById("dayLabel").textContent=hasNight?"Μηνιαία κατανάλωση ημέρας":"Μηνιαία κατανάλωση";document.getElementById("resultsCard").classList.add("hidden");}
+
+  function calcLocal(day,night){return providersData.map(p=>{const t=p[category];const energy=day*t.day+(hasNight?night*t.night:0);const annual=Math.round((energy+t.fixed_monthly)*12*100)/100;return{...p,annual,tariff:t};}).sort((a,b)=>a.annual-b.annual).map((r,i,arr)=>({...r,savings:Math.round((r.annual-arr[0].annual)*100)/100}));}
+
+  async function calculate(){
+    const day=parseInt(document.getElementById("daySlider").value);
+    const night=parseInt(document.getElementById("nightSlider").value);
+    let results;
+    try{const res=await fetch(`${API_BASE}/api/compare`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({category,day_kwh:day,night_kwh:night,has_night:hasNight})});const data=await res.json();results=data.results.map(r=>({...r,savings:r.savings_vs_cheapest}));lastUpdated=data.last_updated;}
+    catch{results=calcLocal(day,night);}
+    lastResults={results,day,night};renderResults(results,day,night);
+  }
+
+  function renderResults(results,day,night){
+    const card=document.getElementById("resultsCard");card.classList.remove("hidden");
+    document.getElementById("aiBox").classList.add("hidden");document.getElementById("aiContent").innerHTML="";
+    document.getElementById("aiBtn").disabled=false;document.getElementById("aiBtn").innerHTML='<span class="ai-dot"></span> Ανάλυση &amp; Σύσταση με AI';
+    document.getElementById("resultsMeta").textContent=`${day}${hasNight?"+"+night:""} kWh/μήνα · ${category==="G1"?"Οικιακό":"Επαγγελματικό"}`;
+    document.getElementById("lastUpdatedEl").textContent=lastUpdated;
+    const mx=Math.max(...results.map(r=>r.annual));
+    document.getElementById("barChart").innerHTML=results.map((r,i)=>`<div class="bar-row"><span class="bar-rank">${i+1}</span><span class="bar-name">${r.name}</span><div class="bar-track"><div class="bar-fill" style="width:${(r.annual/mx*100).toFixed(1)}%;background:${r.color}${i===0?"":"66"}"></div></div><span class="bar-amount">${r.annual.toFixed(0)}€</span></div>`).join("");
+    document.getElementById("rankList").innerHTML=results.map((r,i)=>`<div class="rank-item ${i===0?"best":""}"><div class="rank-num ${i===0?"n1":"nX"}">${i+1}</div><div class="rank-dot" style="background:${r.color}"></div><span class="rank-name">${r.name}</span>${i===0?'<span class="badge-best">Φθηνότερος</span>':''}<div class="rank-right"><div class="rank-price ${i===0?"bp":"np"}">${r.annual.toFixed(2)}€</div><div class="rank-diff">${i===0?"ετησίως":"+"+r.savings.toFixed(0)+"€/έτος"}</div></div></div>`).join("");
+    const maxS=results[results.length-1].annual-results[0].annual;
+    document.getElementById("savingsAmt").textContent=maxS.toFixed(2)+"€ / έτος";
+    document.getElementById("savingsDesc").textContent=`Αλλαγή από ${results[results.length-1].name} → ${results[0].name}`;
+    card.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  async function getAI(){
+    if(!lastResults)return;
+    const btn=document.getElementById("aiBtn"),box=document.getElementById("aiBox"),content=document.getElementById("aiContent");
+    btn.disabled=true;btn.innerHTML='<span class="ai-dot"></span> Επεξεργασία...';
+    box.classList.remove("hidden");content.innerHTML='<span class="ld"></span><span class="ld"></span><span class="ld"></span>';
+    const{results,day,night}=lastResults;
+    const prompt=`Είσαι ειδικός ενεργειακός σύμβουλος στην Ελλάδα. Τιμολόγιο:${category==="G1"?"Οικιακό (G1)":"Επαγγελματικό (G2/G3)"}, κατανάλωση ${day} kWh${hasNight?` και ${night} kWh νύχτας`:""}.
+Αποτελέσματα:${results.map((r,i)=>`${i+1}.${r.name}:${r.annual.toFixed(2)}€/έτος`).join(",")}.
+Φθηνότερος:${results[0].name}. Ακριβότερος:${results[results.length-1].name}. Διαφορά:${(results[results.length-1].annual-results[0].annual).toFixed(2)}€/έτος.
+Σύντομη πρακτική σύσταση 3-4 προτάσεων ελληνικά, χωρίς bullet points.`;
+    try{
+      const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:prompt}]})});
+      const data=await res.json();
+      content.innerHTML=`<p class="ai-text">${data.content?.map(c=>c.text||"").join("")||"Δεν ήταν δυνατή η ανάλυση."}</p>`;
+    }catch{content.innerHTML=`<p class="ai-text" style="color:var(--red)">Σφάλμα σύνδεσης.</p>`;}
+    btn.disabled=false;btn.innerHTML='<span class="ai-dot"></span> Νέα AI Ανάλυση';
+  }
+  init();
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 import json
 import os
@@ -6,13 +6,12 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-# Επιτρέπει requests από ecogreenpower.gr και localhost για development
 CORS(app, origins=[
     "https://ecogreenpower.gr",
     "https://www.ecogreenpower.gr",
     "http://localhost:5050",
     "http://127.0.0.1:5500",
-    "null"  # για άνοιγμα HTML απευθείας από αρχείο
+    "null"
 ])
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -28,29 +27,23 @@ def load_prices():
 
 @app.route("/", methods=["GET"])
 def index():
-    """Health check root."""
     return jsonify({"status": "ok", "service": "Energy Comparator API"})
+
+
+@app.route("/widget", methods=["GET"])
+def widget():
+    """Σερβίρει το frontend widget — embed ως iframe στο WordPress."""
+    return render_template("widget.html")
 
 
 @app.route("/api/prices", methods=["GET"])
 def get_prices():
-    """Επιστρέφει όλες τις τιμές παρόχων."""
     data = load_prices()
     return jsonify(data)
 
 
 @app.route("/api/compare", methods=["POST"])
 def compare():
-    """
-    Υπολογίζει και επιστρέφει κατάταξη παρόχων.
-    Body JSON:
-      {
-        "category": "G1" | "G2",
-        "day_kwh": 250,
-        "night_kwh": 80,
-        "has_night": false
-      }
-    """
     body = request.get_json()
     category = body.get("category", "G1")
     day_kwh = float(body.get("day_kwh", 0))
@@ -64,14 +57,11 @@ def compare():
         tariff = provider.get(category, {})
         if not tariff:
             continue
-
         energy_cost = day_kwh * tariff["day"]
         if has_night:
             energy_cost += night_kwh * tariff["night"]
-
         monthly = energy_cost + tariff["fixed_monthly"]
         annual = monthly * 12
-
         results.append({
             "id": provider["id"],
             "name": provider["name"],
@@ -83,7 +73,6 @@ def compare():
         })
 
     results.sort(key=lambda x: x["annual"])
-
     cheapest = results[0]["annual"]
     for r in results:
         r["savings_vs_cheapest"] = round(r["annual"] - cheapest, 2)
@@ -100,24 +89,11 @@ def compare():
 
 @app.route("/api/update_price", methods=["POST"])
 def update_price():
-    """
-    Admin endpoint: ενημερώνει τιμή παρόχου.
-    Body JSON:
-      {
-        "provider_id": "dei",
-        "category": "G1",
-        "day": 0.1389,
-        "night": 0.0812,
-        "fixed_monthly": 13.5
-      }
-    """
     body = request.get_json()
     provider_id = body.get("provider_id")
     category = body.get("category")
-
     data = load_prices()
     updated = False
-
     for provider in data["providers"]:
         if provider["id"] == provider_id:
             provider[category] = {
@@ -127,14 +103,12 @@ def update_price():
             }
             updated = True
             break
-
     if updated:
         data["last_updated"] = datetime.today().strftime("%Y-%m-%d")
         with open(PRICES_FILE, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
         return jsonify({"success": True, "message": f"Ενημερώθηκε: {provider_id} / {category}"})
-    else:
-        return jsonify({"success": False, "message": "Provider not found"}), 404
+    return jsonify({"success": False, "message": "Provider not found"}), 404
 
 
 @app.route("/api/health", methods=["GET"])

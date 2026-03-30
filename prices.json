@@ -1,0 +1,63 @@
+{
+  "last_updated": "2026-03-29",
+  "currency": "EUR",
+  "unit": "€/kWh",
+  "providers": [
+    {
+      "id": "dei",
+      "name": "ΔΕΗ",
+      "color": "#0057A8",
+      "website": "https://www.dei.gr",
+      "G1": { "day": 0.1389, "night": 0.0812, "fixed_monthly": 13.5 },
+      "G2": { "day": 0.1521, "night": 0.0923, "fixed_monthly": 18.0 }
+    },
+    {
+      "id": "protergia",
+      "name": "Protergia",
+      "color": "#E8320A",
+      "website": "https://www.protergia.gr",
+      "G1": { "day": 0.1312, "night": 0.0754, "fixed_monthly": 12.0 },
+      "G2": { "day": 0.1445, "night": 0.0865, "fixed_monthly": 16.5 }
+    },
+    {
+      "id": "elpedison",
+      "name": "Elpedison",
+      "color": "#F5A800",
+      "website": "https://www.elpedison.gr",
+      "G1": { "day": 0.1298, "night": 0.0741, "fixed_monthly": 11.5 },
+      "G2": { "day": 0.1432, "night": 0.0852, "fixed_monthly": 15.8 }
+    },
+    {
+      "id": "heron",
+      "name": "Heron",
+      "color": "#00A651",
+      "website": "https://www.heron.gr",
+      "G1": { "day": 0.1276, "night": 0.0728, "fixed_monthly": 11.0 },
+      "G2": { "day": 0.1398, "night": 0.0839, "fixed_monthly": 15.2 }
+    },
+    {
+      "id": "nrg",
+      "name": "NRG",
+      "color": "#7B2D8B",
+      "website": "https://www.nrg.gr",
+      "G1": { "day": 0.1334, "night": 0.0768, "fixed_monthly": 12.5 },
+      "G2": { "day": 0.1467, "night": 0.0879, "fixed_monthly": 17.0 }
+    },
+    {
+      "id": "volterra",
+      "name": "Volterra",
+      "color": "#00BCD4",
+      "website": "https://www.volterra.gr",
+      "G1": { "day": 0.1356, "night": 0.0791, "fixed_monthly": 13.0 },
+      "G2": { "day": 0.1489, "night": 0.0901, "fixed_monthly": 17.5 }
+    },
+    {
+      "id": "wattvolt",
+      "name": "Watt+Volt",
+      "color": "#FF6B35",
+      "website": "https://www.wattvolt.gr",
+      "G1": { "day": 0.1289, "night": 0.0735, "fixed_monthly": 11.8 },
+      "G2": { "day": 0.1422, "night": 0.0846, "fixed_monthly": 16.0 }
+    }
+  ]
+}

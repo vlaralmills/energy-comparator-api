@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-03-29",
+  "last_updated": "2026-04-02",
   "currency": "EUR",
   "unit": "€/kWh",
   "providers": [
@@ -8,7 +8,7 @@
       "name": "ΔΕΗ",
       "color": "#0057A8",
       "website": "https://www.dei.gr",
-      "G1": { "day": 0.1389, "night": 0.0812, "fixed_monthly": 13.5 },
+      "G1": { "day": 0.145, "night": 0.095, "fixed_monthly": 8.0 },
       "G2": { "day": 0.1521, "night": 0.0923, "fixed_monthly": 18.0 }
     },
     {
@@ -16,15 +16,15 @@
       "name": "Protergia",
       "color": "#E8320A",
       "website": "https://www.protergia.gr",
-      "G1": { "day": 0.1312, "night": 0.0754, "fixed_monthly": 12.0 },
+      "G1": { "day": 0.154, "night": 0.154, "fixed_monthly": 9.9 },
       "G2": { "day": 0.1445, "night": 0.0865, "fixed_monthly": 16.5 }
     },
     {
-      "id": "elpedison",
-      "name": "Elpedison",
+      "id": "enerwave",
+      "name": "Enerwave",
       "color": "#F5A800",
-      "website": "https://www.elpedison.gr",
-      "G1": { "day": 0.1298, "night": 0.0741, "fixed_monthly": 11.5 },
+      "website": "https://www.enerwave.gr",
+      "G1": { "day": 0.2479, "night": 0.2479, "fixed_monthly": 5.0 },
       "G2": { "day": 0.1432, "night": 0.0852, "fixed_monthly": 15.8 }
     },
     {
@@ -32,7 +32,7 @@
       "name": "Heron",
       "color": "#00A651",
       "website": "https://www.heron.gr",
-      "G1": { "day": 0.1276, "night": 0.0728, "fixed_monthly": 11.0 },
+      "G1": { "day": 0.153, "night": 0.153, "fixed_monthly": 10.9 },
       "G2": { "day": 0.1398, "night": 0.0839, "fixed_monthly": 15.2 }
     },
     {
@@ -40,24 +40,16 @@
       "name": "NRG",
       "color": "#7B2D8B",
       "website": "https://www.nrg.gr",
-      "G1": { "day": 0.1334, "night": 0.0768, "fixed_monthly": 12.5 },
+      "G1": { "day": 0.199, "night": 0.199, "fixed_monthly": 5.0 },
       "G2": { "day": 0.1467, "night": 0.0879, "fixed_monthly": 17.0 }
     },
     {
       "id": "volterra",
       "name": "Volterra",
       "color": "#00BCD4",
-      "website": "https://www.volterra.gr",
-      "G1": { "day": 0.1356, "night": 0.0791, "fixed_monthly": 13.0 },
+      "website": "https://www.protergia.gr",
+      "G1": { "day": 0.139, "night": 0.139, "fixed_monthly": 5.0 },
       "G2": { "day": 0.1489, "night": 0.0901, "fixed_monthly": 17.5 }
-    },
-    {
-      "id": "wattvolt",
-      "name": "Watt+Volt",
-      "color": "#FF6B35",
-      "website": "https://www.wattvolt.gr",
-      "G1": { "day": 0.1289, "night": 0.0735, "fixed_monthly": 11.8 },
-      "G2": { "day": 0.1422, "night": 0.0846, "fixed_monthly": 16.0 }
     }
   ]
 }

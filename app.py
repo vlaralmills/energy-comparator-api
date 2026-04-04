@@ -9,6 +9,9 @@ app = Flask(__name__)
 CORS(app, origins=[
     "https://ecogreenpower.gr",
     "https://www.ecogreenpower.gr",
+    "https://ecogreenpower-new.pages.dev",
+    "https://*.ecogreenpower-new.pages.dev",
+    "http://localhost:3000",
     "http://localhost:5050",
     "http://127.0.0.1:5500",
     "null"
@@ -32,7 +35,6 @@ def index():
 
 @app.route("/widget", methods=["GET"])
 def widget():
-    """Σερβίρει το frontend widget — embed ως iframe στο WordPress."""
     return render_template("widget.html")
 
 
